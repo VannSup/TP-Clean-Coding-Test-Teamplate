@@ -23,8 +23,14 @@ interface CharacterApi {
         @Query("page") page: Int
     ): Response<PaginatedResult<Character>>
 
+    @GET(GET_ALL_CHARACTER_DETAILS_PATH)
+    suspend fun getCharacterById(
+        character_id: String
+    )
+
     companion object {
         const val GET_ALL_CHARACTER_PATH = "character/"
+        const val GET_ALL_CHARACTER_DETAILS_PATH = "character/{character_id}"
     }
 
 }

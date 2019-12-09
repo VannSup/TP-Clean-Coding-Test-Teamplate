@@ -51,5 +51,5 @@ class CharacterListFragment : Fragment(), OnCharacterClickListener {
     // Implementation of OnCharacterClickListener
     override fun invoke(view: View, character: Character) {
         Toast.makeText(view.context, character.name, Toast.LENGTH_SHORT).show()
-    }
+    }// YKR findNavController().navigate(R.id.)
 }
