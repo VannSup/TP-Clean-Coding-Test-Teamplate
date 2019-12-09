@@ -1,13 +1,11 @@
 package fr.appsolute.tp.ui.viewmodel
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import fr.appsolute.tp.data.model.Character
 import fr.appsolute.tp.data.repository.CharacterRepository
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class CharacterViewModel private constructor(
     private val repository: CharacterRepository
@@ -18,15 +16,11 @@ class CharacterViewModel private constructor(
      */
     val charactersPagedList = repository.getPaginatedList(viewModelScope)
 
-    /*fun getCharacterDetails(id: Int, onSuccess: (LiveData<Character>)-> Unit){
-        viewModelScope.launch{
-            val detailsOfCharacter = withContext(Dispatchers.IO){
-                //personage = aller chercher mon user detail
-                return@withContext getCharacterDetails(id,LiveData<Character>)
-            }
-            onSuccess(detailsOfCharacter)
+    fun getCharacterById(id: Int, onSuccess: OnSuccess<Character>) {
+        viewModelScope.launch {
+            repository.getCharacterDetail(id)?.run(onSuccess)
         }
-    }*/
+    }
 
     companion object Factory : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
