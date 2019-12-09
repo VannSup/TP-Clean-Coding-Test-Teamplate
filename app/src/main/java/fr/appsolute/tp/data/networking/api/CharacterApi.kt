@@ -25,7 +25,7 @@ interface CharacterApi {
 
     @GET(GET_ALL_CHARACTER_DETAILS_PATH)
     suspend fun getCharacterById(
-        character_id: String
+        character_id: Int
     )
 
     companion object {
