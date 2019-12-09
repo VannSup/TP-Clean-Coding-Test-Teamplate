@@ -53,7 +53,7 @@ class CharacterListFragment : Fragment(), OnCharacterClickListener {
     // Implementation of OnCharacterClickListener
     override fun invoke(view: View, character: Character) {
         Toast.makeText(view.context, character.name, Toast.LENGTH_SHORT).show()
-        findNavController().navigate(R.id.action_character_list_fragment_to_characterDetailFragment,bundleOf("character_id" to character.id))
+        findNavController().navigate(R.id.action_character_list_fragment_to_characterDetailFragment,bundleOf(CharacterDetailFragment.ARG_CHARACTER_ID_KEY to character.id))
     }
 
     companion object

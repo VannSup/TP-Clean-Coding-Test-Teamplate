@@ -24,7 +24,7 @@ class CharacterDetailFragment : Fragment() {
             characterViewModel = ViewModelProvider(this, CharacterViewModel).get()
         } ?: throw IllegalStateException("Invalid Activity")
         characterId =
-            arguments?.getInt("character_id") ?:throw java.lang.IllegalStateException("No ID found")
+            arguments?.getInt(ARG_CHARACTER_ID_KEY) ?:throw java.lang.IllegalStateException("No ID found")
     }
 
     override fun onCreateView(
@@ -51,5 +51,9 @@ class CharacterDetailFragment : Fragment() {
                 }
             }
         }
+    }
+
+    companion object{
+        const val ARG_CHARACTER_ID_KEY = "arg_character_id_key"
     }
 }
