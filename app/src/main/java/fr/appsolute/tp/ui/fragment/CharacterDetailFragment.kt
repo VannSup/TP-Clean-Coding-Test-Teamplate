@@ -1,5 +1,8 @@
 package fr.appsolute.tp.ui.fragment
 
+import android.graphics.Color
+import android.graphics.drawable.ShapeDrawable
+import android.graphics.drawable.shapes.RectShape
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +10,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
+import androidx.transition.Fade
+import androidx.transition.TransitionInflater
 import com.bumptech.glide.Glide
 import fr.appsolute.tp.R
 import fr.appsolute.tp.ui.activity.MainActivity
@@ -20,6 +25,13 @@ class CharacterDetailFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val transition =
+            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+        sharedElementEnterTransition = transition
+        enterTransition = Fade().apply {
+            this.startDelay = 220
+            this.duration = 220
+        }
         activity?.run {
             characterViewModel = ViewModelProvider(this, CharacterViewModel).get()
         } ?: throw IllegalStateException("Invalid Activity")
@@ -45,8 +57,12 @@ class CharacterDetailFragment : Fragment() {
                 view.apply {
                     this.character_name.text = it.name
 
+                    requireActivity().supportPostponeEnterTransition()
                     Glide.with(this)
                         .load(it.image)
+                        .placeholder(ShapeDrawable(RectShape()).apply {
+                            this.setTint(Color.BLUE)
+                        })
                         .into(this.character_image)
                 }
             }
