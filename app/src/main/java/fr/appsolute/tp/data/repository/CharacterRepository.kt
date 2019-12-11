@@ -12,7 +12,6 @@ import fr.appsolute.tp.data.networking.datasource.CharacterDataSource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.lang.IllegalStateException
 
 private class CharacterRepositoryImpl(
     private val api: CharacterApi
@@ -35,17 +34,17 @@ private class CharacterRepositoryImpl(
         ).build()
     }
 
-    override suspend fun getCharacterDetail(id: Int): Character?{
+    override suspend fun getCharacterDetail(id: Int): Character? {
         return withContext(Dispatchers.IO) {
             try {
                 val response = api.getCharacterById(id)
-                check(response.isSuccessful){
+                check(response.isSuccessful) {
                     "Response is not a sucess : code = ${response.code()}"
                 }
-                val data = response.body()?: throw IllegalStateException("Body is nukl")
+                val data = response.body() ?: throw IllegalStateException("Body is null")
                 data
-            }catch (t:Throwable){
-                Log.d("Erreur",t.message,t)
+            } catch (t: Throwable) {
+                Log.d("Erreur", t.message, t)
                 null
             }
         }
@@ -62,7 +61,7 @@ interface CharacterRepository {
      */
     fun getPaginatedList(scope: CoroutineScope): LiveData<PagedList<Character>>
 
-    suspend  fun getCharacterDetail(id: Int):Character?
+    suspend fun getCharacterDetail(id: Int): Character?
 
     companion object {
         /**

@@ -14,7 +14,7 @@ interface EpisodeApi {
      *
      * @param page : Int for the current page to fetch
      *
-     * @return A [Response] of [PaginatedResult] of [Character]
+     * @return A [Response] of [PaginatedResult] of [Episode]
      */
     @GET(GET_ALL_EPISODE_PATH)
     suspend fun getAllEpisode(
@@ -23,8 +23,8 @@ interface EpisodeApi {
 
     @GET(GET_ALL_EPISODE_DETAILS_PATH)
     suspend fun getEpisodeById(
-        @Path("episode_id")episode_id: Int
-    ): Response<Episode>
+        @Path("episode_id") episode_id: Int
+    ): Response<PaginatedResult<Episode>>
 
     companion object {
         const val GET_ALL_EPISODE_PATH = "episode/"

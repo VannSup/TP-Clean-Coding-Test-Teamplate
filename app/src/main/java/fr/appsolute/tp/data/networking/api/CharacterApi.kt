@@ -26,8 +26,8 @@ interface CharacterApi {
 
     @GET(GET_ALL_CHARACTER_DETAILS_PATH)
     suspend fun getCharacterById(
-        @Path("character_id")character_id: Int
-    ):Response<Character>
+        @Path("character_id") character_id: Int
+    ): Response<Character>
 
     companion object {
         const val GET_ALL_CHARACTER_PATH = "character/"

@@ -15,6 +15,7 @@ import fr.appsolute.tp.R
 import fr.appsolute.tp.data.model.Character
 import fr.appsolute.tp.ui.adapter.CharacterAdapter
 import fr.appsolute.tp.ui.viewmodel.CharacterViewModel
+import fr.appsolute.tp.ui.viewmodel.EpisodeViewModel
 import fr.appsolute.tp.ui.widget.holder.OnCharacterClickListener
 import kotlinx.android.synthetic.main.fragment_character_list.view.*
 import kotlinx.android.synthetic.main.holder_character.view.*
@@ -22,12 +23,14 @@ import kotlinx.android.synthetic.main.holder_character.view.*
 class CharacterListFragment : Fragment(), OnCharacterClickListener {
 
     private lateinit var characterViewModel: CharacterViewModel
+    private lateinit var episodeViewModel: EpisodeViewModel
     private lateinit var characterAdapter: CharacterAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activity?.run {
             characterViewModel = ViewModelProvider(this, CharacterViewModel).get()
+            episodeViewModel = ViewModelProvider(this, EpisodeViewModel).get()
         } ?: throw IllegalStateException("Invalid Activity")
     }
 
@@ -49,17 +52,14 @@ class CharacterListFragment : Fragment(), OnCharacterClickListener {
         characterViewModel.charactersPagedList.observe(this) {
             characterAdapter.submitList(it)
         }
+        episodeViewModel.getEpisodes {}
     }
 
     // Implementation of OnCharacterClickListener
     override fun invoke(view: View, character: Character) {
         findNavController().navigate(
             R.id.characterDetailFragment,
-            bundleOf(CharacterDetailFragment.ARG_CHARACTER_ID_KEY to character.id),
-            null,
-            FragmentNavigatorExtras(
-                view.holder_character_avatar to "view"
-            )
+            bundleOf(CharacterDetailFragment.ARG_CHARACTER_ID_KEY to character.id)
         )
     }
 

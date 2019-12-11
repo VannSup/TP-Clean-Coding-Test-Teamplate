@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="fr.appsolute.tp.ui.widget.holder.EpisodeViewHolder"
+    tools:layout_height="60dp"
+    tools:showIn="@layout/fragment_character_detail">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/holder_episode_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/Noir"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        tools:text="@tools:sample/first_names" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/holder_episode_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/holder_episode_name"
+        app:layout_constraintTop_toBottomOf="@+id/holder_episode_name"
+        tools:text="@tools:sample/date/mmddyy" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/holder_episode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="304dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/holder_episode_name"
+        tools:text="@tools:sample/us_zipcodes" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

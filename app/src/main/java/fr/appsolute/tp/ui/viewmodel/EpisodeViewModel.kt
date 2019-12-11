@@ -1,24 +1,33 @@
 package fr.appsolute.tp.ui.viewmodel
 
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import fr.appsolute.tp.RickAndMortyApplication
+import androidx.lifecycle.viewModelScope
+import fr.appsolute.tp.data.model.Episode
 import fr.appsolute.tp.data.repository.EpisodeRepository
+import kotlinx.coroutines.launch
 
 
 class EpisodeViewModel(
-    application: RickAndMortyApplication
-) : AndroidViewModel(application) {
+    private val episodeRepository: EpisodeRepository
+) : ViewModel() {
 
-    val episodeRepository = EpisodeRepository.newInstance(application)
+    fun getEpisodes(onSuccess: OnSuccess<List<Episode>>){
+        viewModelScope.launch {
+            episodeRepository.getAllEpisode()?.run(onSuccess)
+        }
+    }
 
-    class Factory (
-        private val application: RickAndMortyApplication
-    ): ViewModelProvider.AndroidViewModelFactory(application){
+    fun getEpisodeFiltered(idList: List<Int>, block : OnSuccess<List<Episode>>) {
+        viewModelScope.launch {
+            episodeRepository.getFilteredEpisode(idList).run(block)
+        }
+    }
+
+    companion object Factory : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return EpisodeViewModel(application) as T
+            return EpisodeViewModel(episodeRepository = EpisodeRepository.newInstance()) as T
         }
     }
 }
