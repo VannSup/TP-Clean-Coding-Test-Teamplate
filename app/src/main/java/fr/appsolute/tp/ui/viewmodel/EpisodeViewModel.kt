@@ -1,31 +1,24 @@
 package fr.appsolute.tp.ui.viewmodel
 
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
-import fr.appsolute.tp.data.model.Episode
+import fr.appsolute.tp.RickAndMortyApplication
 import fr.appsolute.tp.data.repository.EpisodeRepository
-import kotlinx.coroutines.launch
 
-class EpisodeViewModel private constructor(
-    private val repository: EpisodeRepository
-) : ViewModel() {
 
-    /**
-     *  Return the paginated list of character from the API
-     */
-    val episodesPagedList = repository.getPaginatedList(viewModelScope)
+class EpisodeViewModel(
+    application: RickAndMortyApplication
+) : AndroidViewModel(application) {
 
-    fun getEpisodeById(id: Int, onSuccess: OnSuccess<Episode>) {
-        viewModelScope.launch {
-            repository.getEpisodeDetail(id)?.run(onSuccess)
-        }
-    }
+    val episodeRepository = EpisodeRepository.newInstance(application)
 
-    companion object Factory : ViewModelProvider.Factory {
+    class Factory (
+        private val application: RickAndMortyApplication
+    ): ViewModelProvider.AndroidViewModelFactory(application){
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return EpisodeViewModel(EpisodeRepository.instance) as T
+            return EpisodeViewModel(application) as T
         }
     }
 }

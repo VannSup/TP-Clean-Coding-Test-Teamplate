@@ -25,13 +25,7 @@ class CharacterDetailFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val transition =
-            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
-        sharedElementEnterTransition = transition
-        enterTransition = Fade().apply {
-            this.startDelay = 220
-            this.duration = 220
-        }
+
         activity?.run {
             characterViewModel = ViewModelProvider(this, CharacterViewModel).get()
         } ?: throw IllegalStateException("Invalid Activity")
@@ -56,13 +50,11 @@ class CharacterDetailFragment : Fragment() {
                 }
                 view.apply {
                     this.character_name.text = it.name
+                    this.character_species.text = it.species
+                    this.character_gender.text = it.gender
 
-                    requireActivity().supportPostponeEnterTransition()
                     Glide.with(this)
                         .load(it.image)
-                        .placeholder(ShapeDrawable(RectShape()).apply {
-                            this.setTint(Color.BLUE)
-                        })
                         .into(this.character_image)
                 }
             }
