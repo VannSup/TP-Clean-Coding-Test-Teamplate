@@ -13,6 +13,7 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import fr.appsolute.tp.R
 import fr.appsolute.tp.data.model.Character
+import fr.appsolute.tp.ui.activity.MainActivity
 import fr.appsolute.tp.ui.adapter.CharacterAdapter
 import fr.appsolute.tp.ui.viewmodel.CharacterViewModel
 import fr.appsolute.tp.ui.viewmodel.EpisodeViewModel
@@ -44,6 +45,9 @@ class CharacterListFragment : Fragment(), OnCharacterClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as? MainActivity)?.supportActionBar?.apply {
+            this.title = "Rick & Morty Character Dictionary !!"
+        }
         // We need to inject the OnCharacterClickListener in the constructor of the adapter
         characterAdapter = CharacterAdapter(this)
         view.character_list_recycler_view.apply {

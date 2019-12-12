@@ -3,5 +3,7 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
-    <color name="Noir">#000000</color>
+    <color name="background">#FF909090</color>
+    <color name="backgroundItem">#FFFFFF</color>
+    <color name="Noir">#FF000000</color>
 </resources>
