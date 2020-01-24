@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import androidx.lifecycle.observe
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import fr.appsolute.tp.R
 import fr.appsolute.tp.data.model.Character
@@ -19,7 +18,6 @@ import fr.appsolute.tp.ui.viewmodel.CharacterViewModel
 import fr.appsolute.tp.ui.viewmodel.EpisodeViewModel
 import fr.appsolute.tp.ui.widget.holder.OnCharacterClickListener
 import kotlinx.android.synthetic.main.fragment_character_list.view.*
-import kotlinx.android.synthetic.main.holder_character.view.*
 
 class CharacterListFragment : Fragment(), OnCharacterClickListener {
 
@@ -41,12 +39,12 @@ class CharacterListFragment : Fragment(), OnCharacterClickListener {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_character_list, container, false)
-    }
+      }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as? MainActivity)?.supportActionBar?.apply {
-            this.title = "Rick & Morty Character Dictionary !!"
+            this.title = "(╯°□°）╯︵ ┻━┻"
         }
         // We need to inject the OnCharacterClickListener in the constructor of the adapter
         characterAdapter = CharacterAdapter(this)
